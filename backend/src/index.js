@@ -11,9 +11,18 @@ import { connectDB } from "./lib/db.js";
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// job.start();
+job.start();
 app.use(express.json());
 app.use(cors());
+
+// check if server is alive
+app.get("/", (req, res) => {
+  return res.status(200).json({
+    error: false,
+    status: 200,
+    message: "Server is alive",
+  });
+});
 
 app.use("/api/auth", authRoutes);
 app.use("/api/books", bookRoutes);
